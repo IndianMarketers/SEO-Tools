@@ -40,6 +40,7 @@ export const HEADER_NAV_ITEMS: NavItem[] = [
   { label: 'Tools', href: `${MAIN_SITE_URL}/tools` },
   { label: 'Blog', href: `${MAIN_SITE_URL}/blog/` },
   { label: 'Contact us', href: `${MAIN_SITE_URL}/contact-us/` },
+  { label: 'Careers', href: `${MAIN_SITE_URL}/careers/` },
 ];
 
 export const LETS_TALK_LINK = {
@@ -181,6 +182,7 @@ export const FOOTER_RESOURCE_GROUP: FooterGroup = {
     { label: 'Blog', href: `${MAIN_SITE_URL}/blog/` },
     { label: 'Case Studies', href: `${MAIN_SITE_URL}/case-studies/` },
     { label: 'Sitemap', href: '#' },
+    { label: 'Careers', href: `${MAIN_SITE_URL}/careers/` },
   ],
 };
 
