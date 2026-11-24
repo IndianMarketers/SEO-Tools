@@ -84,11 +84,6 @@ export function getGoogleConfig(
     return null;
   }
 
-  const allowRollback =
-    options?.allowVercelRollback ||
-    process.env.ALLOW_VERCEL_OAUTH_ROLLBACK === 'true' ||
-    process.env.ALLOW_VERCEL_ROLLBACK === 'true';
-
   const isCandidateVercel =
     originCandidate && originCandidate.includes('vercel.app');
 
@@ -97,8 +92,8 @@ export function getGoogleConfig(
 
   let redirectUri = process.env.GOOGLE_OAUTH_REDIRECT_URI || process.env.GOOGLE_REDIRECT_URI;
 
-  // Support Vercel rollback when explicitly permitted or when handling callback directly on Vercel
-  if (allowRollback && (redirectUri?.includes('vercel.app') || isCandidateVercel)) {
+  // Support Vercel rollback only when explicitly requested in options for isolated preview testing
+  if (options?.allowVercelRollback && isCandidateVercel) {
     redirectUri = redirectUri && redirectUri.includes('vercel.app')
       ? redirectUri
       : `https://${new URL(originCandidate!).host}/api/seo/bulk-google-index-checker/auth/callback`;

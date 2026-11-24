@@ -18,10 +18,26 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   const forwardedHost = req.headers.get('x-forwarded-host');
   const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
-  const candidate = forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : req.nextUrl.origin;
-  const isCandidateVercel = candidate.includes('vercel.app');
+  const referer = req.headers.get('referer');
+  let refererOrigin: string | null = null;
+  if (referer) {
+    try {
+      refererOrigin = new URL(referer).origin;
+    } catch {}
+  }
+  const originParam = req.nextUrl.searchParams.get('origin');
+  const hostHeader = req.headers.get('host');
+
+  // Candidate priority: origin param > referer > forwarded host > non-vercel host > nextUrl.origin
+  const candidate =
+    originParam ||
+    refererOrigin ||
+    (forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : null) ||
+    (hostHeader && !hostHeader.includes('vercel.app') ? `${forwardedProto}://${hostHeader}` : null) ||
+    req.nextUrl.origin;
+
   const trustedOrigin = getTrustedOrigin(candidate);
-  const config = getGoogleConfig(isCandidateVercel ? candidate : trustedOrigin, { allowVercelRollback: isCandidateVercel });
+  const config = getGoogleConfig(trustedOrigin);
 
   if (!config) {
     return NextResponse.json(

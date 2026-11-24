@@ -120,6 +120,12 @@
       }
     },
     {
+      "source": "/api/seo/bulk-index-checker/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    },
+    {
       "source": "/api/seo/local-search/(.*)",
       "destination": {
         "service": "frontend"

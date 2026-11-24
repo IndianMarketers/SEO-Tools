@@ -7,6 +7,7 @@ import {
 } from '@/lib/seo/bulk-google-index-checker/sessionUtils';
 import {
   getGoogleConfig,
+  getTrustedOrigin,
   fetchUserProperties,
   refreshAccessToken,
 } from '@/lib/seo/bulk-google-index-checker/gscService';
@@ -19,8 +20,21 @@ export async function GET(req: NextRequest): Promise<NextResponse<AuthStatusResp
   try {
     const forwardedHost = req.headers.get('x-forwarded-host');
     const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
-    const candidate = forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : req.nextUrl.origin;
-    const config = getGoogleConfig(candidate);
+    const referer = req.headers.get('referer');
+    let refererOrigin: string | null = null;
+    if (referer) {
+      try {
+        refererOrigin = new URL(referer).origin;
+      } catch {}
+    }
+    const hostHeader = req.headers.get('host');
+    const candidate =
+      refererOrigin ||
+      (forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : null) ||
+      (hostHeader && !hostHeader.includes('vercel.app') ? `${forwardedProto}://${hostHeader}` : null) ||
+      req.nextUrl.origin;
+    const trustedOrigin = getTrustedOrigin(candidate);
+    const config = getGoogleConfig(trustedOrigin);
     if (!config) {
       return NextResponse.json({
         configured: false,

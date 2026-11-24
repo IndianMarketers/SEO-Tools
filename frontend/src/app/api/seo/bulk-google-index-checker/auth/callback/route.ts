@@ -19,10 +19,23 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   const forwardedHost = req.headers.get('x-forwarded-host');
   const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
-  const candidate = forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : req.nextUrl.origin;
-  const isCandidateVercel = candidate.includes('vercel.app');
+  const referer = req.headers.get('referer');
+  let refererOrigin: string | null = null;
+  if (referer) {
+    try {
+      refererOrigin = new URL(referer).origin;
+    } catch {}
+  }
+  const hostHeader = req.headers.get('host');
+
+  const candidate =
+    refererOrigin ||
+    (forwardedHost ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}` : null) ||
+    (hostHeader && !hostHeader.includes('vercel.app') ? `${forwardedProto}://${hostHeader}` : null) ||
+    req.nextUrl.origin;
+
   const trustedOrigin = getTrustedOrigin(candidate);
-  const config = getGoogleConfig(isCandidateVercel ? candidate : trustedOrigin, { allowVercelRollback: isCandidateVercel });
+  const config = getGoogleConfig(trustedOrigin);
   const redirectTarget = new URL('/tools/bulk-google-index-checker', trustedOrigin);
 
   if (!config) {
@@ -33,7 +46,9 @@ export async function GET(req: NextRequest) {
   // If login route stored the exact redirect_uri sent to Google in the cookie, enforce it
   const storedRedirectUri = req.cookies.get(REDIRECT_URI_COOKIE_NAME)?.value;
   if (storedRedirectUri && (storedRedirectUri.startsWith('http://') || storedRedirectUri.startsWith('https://'))) {
-    config.redirectUri = storedRedirectUri;
+    if (!storedRedirectUri.includes('vercel.app') || process.env.NODE_ENV !== 'production') {
+      config.redirectUri = storedRedirectUri;
+    }
   }
 
   const searchParams = req.nextUrl.searchParams;

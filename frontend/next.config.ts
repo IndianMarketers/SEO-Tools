@@ -74,6 +74,10 @@ const nextConfig: NextConfig = {
         destination: '/api/seo/bulk-google-index-checker/:path*'
       },
       {
+        source: '/api/seo/bulk-index-checker/:path*',
+        destination: '/api/seo/bulk-index-checker/:path*'
+      },
+      {
         source: '/api/seo/local-search/:path*',
         destination: '/api/seo/local-search/:path*'
       },

@@ -743,6 +743,12 @@ export default function BulkGoogleIndexCheckerPage() {
               <div>
                 <a
                   href="/api/seo/bulk-google-index-checker/auth/login"
+                  onClick={(e) => {
+                    if (typeof window !== 'undefined' && window.location.origin) {
+                      e.preventDefault();
+                      window.location.href = `/api/seo/bulk-google-index-checker/auth/login?origin=${encodeURIComponent(window.location.origin)}`;
+                    }
+                  }}
                   className="inline-flex items-center justify-center px-6 py-3 bg-[#1a73e8] hover:bg-[#1557b0] text-white font-bold text-sm rounded-xl shadow-xs transition whitespace-nowrap cursor-pointer"
                 >
                   <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
