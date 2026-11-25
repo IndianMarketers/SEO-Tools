@@ -1382,6 +1382,89 @@ export const TOOLS_REGISTRY: Record<string, ToolSeoData> = {
         answer: 'Start by reviewing your server access logs for the specific URL and time window tested. Check CDN analytics for cache hit rates and origin response times. Use server monitoring tools to inspect backend processing duration, database query times, and server-side rendering latency. Review your CDN edge caching rules and ensure appropriate Cache-Control headers are set. If using Cloudflare, check Server-Timing headers and the CF-Cache-Status to understand cache behaviour.'
       }
     ]
+  },
+
+  'keyword-density-checker': {
+    slug: 'keyword-density-checker',
+    name: 'Keyword Density Checker',
+    metaTitle: 'Free Keyword Density Checker Tool | Indian Marketers',
+    metaDescription: 'Check keyword frequency, density and placement in any webpage or text. Analyse specific target keywords and discover common phrases with our free SEO tool.',
+    canonical: `${TOOLS_BASE_URL}/keyword-density-checker`,
+    category: 'Content & Semantic SEO',
+    softwareCategory: 'SEOApplication',
+    keywords: [
+      'keyword density checker',
+      'free keyword density checker',
+      'keyword density checker tool',
+      'keyword frequency checker',
+      'keyword density calculator',
+      'online keyword density checker',
+      'keyword counter tool',
+      'website keyword density checker',
+      'keyword occurrence checker',
+      'keyword density analysis tool',
+      'keyword stuffing checker'
+    ],
+    features: [
+      'Live webpage URL extraction with Main Content Only and Full Visible Page Content scopes',
+      'Local browser-side plain text analysis supporting up to 100,000 characters',
+      'Custom target keyword and long-tail phrase analysis for up to 100 unique keywords',
+      'Automatic 1-word, 2-word, 3-word, and 4-word phrase discovery with optional stop-word filtering',
+      'Keyword placement breakdown across Meta Title, Meta Description, H1-H6, Body, Anchors, Alt Text, and URL Path',
+      'Quarter-by-quarter keyword distribution and safe contextual sentence highlighting',
+      'Add or remove target keywords on active results without re-fetching the webpage',
+      'Formula-injection safe UTF-8 CSV exports for Excel and Google Sheets'
+    ],
+    faqs: [
+      {
+        question: 'Is the Keyword Density Checker free?',
+        answer: "Yes. Indian Marketers' Keyword Density Checker is free to use for webpage and text analysis, subject to reasonable usage limits."
+      },
+      {
+        question: 'Can I check a specific keyword instead of automatically detected keywords?',
+        answer: 'Yes. Enter your target keyword or phrase in the Target Keywords field to check its exact frequency and density.'
+      },
+      {
+        question: 'Can I check multiple keywords at the same time?',
+        answer: 'Yes. You can enter multiple target keywords and analyse them together in a single report.'
+      },
+      {
+        question: 'Does the tool support long-tail keywords?',
+        answer: 'Yes. The tool supports individual words and multi-word phrases, including long-tail keywords.'
+      },
+      {
+        question: 'What happens if my target keyword is not found?',
+        answer: 'The tool displays the keyword with zero occurrences and 0.00% density.'
+      },
+      {
+        question: 'Does keyword density directly affect Google rankings?',
+        answer: 'Google does not prescribe an ideal keyword density percentage. Content relevance, usefulness and natural language are more important than achieving a fixed keyword repetition rate.'
+      },
+      {
+        question: 'Can I analyse competitor websites?',
+        answer: 'Yes. Enter a publicly accessible competitor webpage URL to review its keyword frequency, density and placement, subject to website access restrictions.'
+      },
+      {
+        question: 'Can I exclude headers, footers and navigation menus?',
+        answer: 'Yes. The Main Content Only option attempts to exclude unrelated website-wide elements and analyse the primary webpage content.'
+      },
+      {
+        question: 'Can I check keyword usage in meta titles and headings?',
+        answer: 'Yes. URL analysis includes a keyword placement report covering page titles, meta descriptions, headings and other supported webpage elements.'
+      },
+      {
+        question: 'Does the tool count singular and plural keywords together?',
+        answer: 'No. Exact-match analysis treats singular and plural forms as separate keywords.'
+      },
+      {
+        question: 'Can I download keyword density results?',
+        answer: 'Yes. Keyword frequency, density and placement results can be exported as CSV files for use in Excel or Google Sheets.'
+      },
+      {
+        question: 'Can I add new keywords without analysing the webpage again?',
+        answer: 'Yes. Once the webpage content has been extracted, additional keywords can be analysed against the same content without another webpage fetch.'
+      }
+    ]
   }
 };
 

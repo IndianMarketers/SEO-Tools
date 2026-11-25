@@ -81,6 +81,23 @@ const TOOLS_DATA = [
         name: 'AI Page Focus & Semantic Relevance Analyzer',
         description: 'Analyse webpage topics, measure semantic relevance with 3072-dimensional embeddings, compare competitors, and discover AI-powered content improvements.',
         href: '/tools/page-focus-analyzer'
+      },
+      {
+        name: 'Keyword Density Checker',
+        description: 'Analyse keyword frequency, density and placement across webpages or pasted content. Identify frequently used keywords and check specific target keywords.',
+        href: '/tools/keyword-density-checker',
+        aliases: [
+          'Keyword density checker',
+          'Keyword frequency checker',
+          'Keyword counter',
+          'Keyword occurrence checker',
+          'Keyword density calculator',
+          'Keyword stuffing checker',
+          'Keyword analysis',
+          'Word frequency checker',
+          'Keyword placement checker',
+          'On-page SEO'
+        ]
       }
     ]
   }
@@ -97,9 +114,11 @@ export default function ToolsClient() {
       return { ...categoryData, tools: [] };
     }
 
-    const filteredTools = categoryData.tools.filter(tool => 
-      tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      tool.description.toLowerCase().includes(searchQuery.toLowerCase())
+    const q = searchQuery.toLowerCase();
+    const filteredTools = categoryData.tools.filter((tool: { name: string; description: string; aliases?: string[] }) =>
+      tool.name.toLowerCase().includes(q) ||
+      tool.description.toLowerCase().includes(q) ||
+      (tool.aliases ? tool.aliases.some(alias => alias.toLowerCase().includes(q)) : false)
     );
 
     return {
@@ -117,7 +136,7 @@ export default function ToolsClient() {
           Free Technical <span className="text-[var(--im-primary)]">SEO Tools</span> Directory
         </h1>
         <p className="text-xs sm:text-sm md:text-base text-[var(--im-text-muted)] max-w-2xl mx-auto mb-4 sm:mb-5 leading-relaxed font-normal">
-          A comprehensive suite of 20 free technical SEO tools engineered for marketers, agencies, and developers. Audit crawl directives, inspect JavaScript rendering, validate Schema.org structured data, and verify Google indexing without subscriptions.
+          A comprehensive suite of 21 free technical SEO tools engineered for marketers, agencies, and developers. Audit crawl directives, inspect JavaScript rendering, validate Schema.org structured data, and verify Google indexing without subscriptions.
         </p>
 
         {/* Search Bar */}

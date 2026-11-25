@@ -70,6 +70,12 @@ export const NAVIGATION_TOOLS: ToolCategory[] = [
         description: 'Analyse webpage topics, semantic relevance, search intent and content gaps with AI-powered recommendations.',
         href: '/tools/page-focus-analyzer',
         isNew: true
+      },
+      {
+        name: 'Keyword Density Checker',
+        description: 'Analyse keyword frequency, density and placement across webpages or pasted content. Identify frequently used keywords and check specific target keywords.',
+        href: '/tools/keyword-density-checker',
+        isNew: true
       }
     ]
   }

@@ -252,9 +252,11 @@ export default function ToolLayout({
   const titleKey = title.toLowerCase().trim();
   const curated = explicitRelatedTools || TOOL_SPECIFIC_RELATED_MAP[titleKey];
   const categoryRelated = RELATED_TOOLS_MAP[category] || RELATED_TOOLS_MAP['Search Appearance'] || [];
-  const relatedTools = (curated && curated.length > 0)
-    ? curated.filter(t => t.name.toLowerCase() !== titleKey).slice(0, 3)
-    : categoryRelated.filter(t => t.name.toLowerCase() !== titleKey).slice(0, 3);
+  const relatedTools = explicitRelatedTools
+    ? explicitRelatedTools.filter(t => t.name.toLowerCase() !== titleKey)
+    : (curated && curated.length > 0)
+      ? curated.filter(t => t.name.toLowerCase() !== titleKey).slice(0, 3)
+      : categoryRelated.filter(t => t.name.toLowerCase() !== titleKey).slice(0, 3);
 
   return (
     <div className="w-full py-4 lg:py-6">
@@ -370,7 +372,7 @@ export default function ToolLayout({
               <p className="text-xs sm:text-sm text-[var(--im-text-muted)] mt-0.5">Explore complementary technical SEO utilities and workflows.</p>
             </div>
             <Link href="/tools" className="text-xs sm:text-sm font-bold text-[var(--im-primary-deep)] hover:underline hidden sm:inline-block">
-              View all 20 tools &rarr;
+              View all 21 tools &rarr;
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
